@@ -1,13 +1,12 @@
+// AdminLayout.jsx
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from './Header';
 import Sidebar from './Sidebar';
-import './AdminLayout.css'; // Assuming you create this CSS file
+import './AdminLayout.css';
 
 const AdminLayout = () => {
   return (
     <div className="app-layout">
-      {/* <Header className="app-header" /> */}
       <div className="app-sidebar">
         <Sidebar />
       </div>

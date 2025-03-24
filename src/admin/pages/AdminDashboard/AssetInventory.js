@@ -1,3 +1,4 @@
+// AssetInventory.jsx
 import React, { useState } from 'react';
 import { Table, Button, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
@@ -12,59 +13,59 @@ const AssetInventory = ({ assets }) => {
     a.id.toString().includes(search)
   );
 
-  const handleEdit = (assetId) => {
-    // Placeholder for edit logic
-    console.log(`Edit asset ${assetId}`);
-  };
-
-  const handleDecommission = (assetId) => {
-    dispatch(deleteAsset(assetId));
-  };
-
-  const handleReassign = (assetId) => {
-    // Placeholder for reassignment logic
-    console.log(`Reassign asset ${assetId}`);
-  };
-
   return (
-    <div>
+    <div className="card p-4 shadow-sm border-0">
+      <h4 className="mb-4 text-primary">Asset Inventory</h4>
       <Form.Control
         type="text"
         placeholder="Search by ID or Name"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="mb-3"
+        className="mb-4 rounded-pill"
       />
-      <Table striped hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Assigned To</th>
-            <th>Purchase Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredAssets.map(asset => (
-            <tr key={asset.id}>
-              <td>{asset.id}</td>
-              <td>{asset.name}</td>
-              <td>{asset.category}</td>
-              <td>{asset.status}</td>
-              <td>{asset.assignedTo || 'Unassigned'}</td>
-              <td>{asset.purchaseDate}</td>
-              <td>
-                <Button variant="outline-primary" size="sm" onClick={() => handleEdit(asset.id)} className="me-2">Edit</Button>
-                <Button variant="outline-danger" size="sm" onClick={() => handleDecommission(asset.id)} className="me-2">Decommission</Button>
-                <Button variant="outline-info" size="sm" onClick={() => handleReassign(asset.id)}>Reassign</Button>
-              </td>
+      <div className="table-responsive">
+        <Table striped hover className="table-modern">
+          <thead className="bg-primary text-white">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Assigned To</th>
+              <th>Purchase Date</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {filteredAssets.map(asset => (
+              <tr key={asset.id}>
+                <td>{asset.id}</td>
+                <td>{asset.name}</td>
+                <td>{asset.category}</td>
+                <td>
+                  <span className={`badge ${asset.status === 'Active' ? 'bg-success' : 'bg-warning'}`}>
+                    {asset.status}
+                  </span>
+                </td>
+                <td>{asset.assignedTo || 'Unassigned'}</td>
+                <td>{asset.purchaseDate}</td>
+                <td>
+                  <Button variant="outline-primary" size="sm" className="me-2 rounded-pill">Edit</Button>
+                  <Button 
+                    variant="outline-danger" 
+                    size="sm" 
+                    className="me-2 rounded-pill"
+                    onClick={() => dispatch(deleteAsset(asset.id))}
+                  >
+                    Decommission
+                  </Button>
+                  <Button variant="outline-info" size="sm" className="rounded-pill">Reassign</Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };

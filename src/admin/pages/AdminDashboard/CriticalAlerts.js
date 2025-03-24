@@ -19,3 +19,4 @@ const CriticalAlerts = ({ alerts }) => {
 };
 
 export default CriticalAlerts;
+

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addAsset } from '../redux/assetsSlice';
@@ -6,8 +7,6 @@ import axios from 'axios';
 const AssetForm = () => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [departments, setDepartments] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -19,10 +18,6 @@ const AssetForm = () => {
     axios.get('/api/categories', { withCredentials: true })
       .then((response) => setCategories(response.data))
       .catch((error) => console.error('Error fetching categories:', error));
-
-    axios.get('/api/departments', { withCredentials: true })
-      .then((response) => setDepartments(response.data))
-      .catch((error) => console.error('Error fetching departments:', error));
   }, []);
 
   const handleSubmit = async (e) => {
@@ -41,48 +36,56 @@ const AssetForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-3">
-      {error && <div className="alert alert-danger">{error}</div>}
-      <div className="mb-3">
-        <label htmlFor="name" className="form-label">Asset Name</label>
-        <input
-          id="name"
-          type="text"
-          className="form-control"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          placeholder="Enter asset name"
-          required
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="category" className="form-label">Category</label>
-        <select
-          id="category"
-          className="form-select"
-          value={formData.category}
-          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-          required
-        >
-          <option value="">Select Category</option>
-          {categories.map((cat, idx) => (
-            <option key={idx} value={cat}>{cat}</option>
-          ))}
-        </select>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="image_url" className="form-label">Image URL (optional)</label>
-        <input
-          id="image_url"
-          type="text"
-          className="form-control"
-          value={formData.image_url}
-          onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-          placeholder="Enter image URL"
-        />
-      </div>
-      <button type="submit" className="btn btn-primary">Add Asset</button>
-    </form>
+    <div className="card p-4">
+      <h4 className="mb-4">Add New Asset</h4>
+      <form onSubmit={handleSubmit}>
+        {error && (
+          <div className="alert alert-danger alert-dismissible fade show" role="alert">
+            {error}
+            <button type="button" className="btn-close" onClick={() => setError(null)}></button>
+          </div>
+        )}
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label fw-bold">Asset Name</label>
+          <input
+            id="name"
+            type="text"
+            className="form-control"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            placeholder="Enter asset name"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="category" className="form-label fw-bold">Category</label>
+          <select
+            id="category"
+            className="form-select"
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            required
+          >
+            <option value="">Select Category</option>
+            {categories.map((cat, idx) => (
+              <option key={idx} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="image_url" className="form-label fw-bold">Image URL (optional)</label>
+          <input
+            id="image_url"
+            type="text"
+            className="form-control"
+            value={formData.image_url}
+            onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+            placeholder="Enter image URL"
+          />
+        </div>
+        <button type="submit" className="btn btn-primary w-100">Add Asset</button>
+      </form>
+    </div>
   );
 };
 

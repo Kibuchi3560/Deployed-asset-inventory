@@ -1,10 +1,10 @@
 // import React, { useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { logout } from '../redux/authSlice';
-// import { useNavigate } from 'react-router-dom';
+// import { useNavigate, NavLink } from 'react-router-dom';
 // import axios from 'axios';
 // import { FaSearch, FaUserCircle } from 'react-icons/fa';
-// import { Navbar } from 'react-bootstrap';
+// import { Navbar, Nav, Container, Form, FormControl, Button } from 'react-bootstrap';
 
 // const Header = () => {
 //   const dispatch = useDispatch();
@@ -26,51 +26,59 @@
 
 //   const handleSearch = (e) => {
 //     e.preventDefault();
-//     console.log('Search query:', searchQuery); // Implement search logic here
+//     console.log('Search query:', searchQuery);
+//     // Implement search logic here
 //   };
 
 //   return (
-//     <header
-//       style={{
-//         position: 'fixed', // Fixed position so it stays at the top
-//         top: 0,
-//         left: 0,
-//         right: 0,
-//         background: 'linear-gradient(90deg, #007bff, #0056b3)',
-//         color: '#fff',
-//         zIndex: 1000, // High z-index so content scrolls under it
-//         boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-//         // paddingBottom: '0.5rem'
-//       }}
-//     >
-//       <div className="container-fluid">
-//         <div className="d-flex align-items-center justify-content-between py-3">
-//           {/* Branding */}
-//           <h1 className="h4 mb-0" style={{ fontWeight: 'bold' }}>
-//            ASSET INVENTORY MANAGEMENT SAMPLE WEB APPLICATION
-//           </h1>
-
-          
-
-//           {/* Profile Section with Icon, Name, and Logout Button */}
-//           <div className="d-flex align-items-center">
-//             <FaUserCircle size={40} className="me-2" />
-//             <span className="me-3">{userName}</span>
-//             <button onClick={handleLogout} className="btn btn-danger">
+//     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" fixed="top">
+//       <Container fluid>
+//         <Navbar.Brand as={NavLink} to="/">
+//           ASSET INVENTORY MANAGEMENT SAMPLE WEB APPLICATION
+//         </Navbar.Brand>
+//         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+//         <Navbar.Collapse id="responsive-navbar-nav">
+//           <Nav className="me-auto">
+//             <Nav.Link as={NavLink} to="/admin/dashboard">
+//               Dashboard
+//             </Nav.Link>
+//             <Nav.Link as={NavLink} to="/admin/users">
+//               Manage Users
+//             </Nav.Link>
+//             <Nav.Link as={NavLink} to="/admin/assets">
+//               Manage Assets
+//             </Nav.Link>
+//             <Nav.Link as={NavLink} to="/admin/requests">
+//               Requests
+//             </Nav.Link>
+//             <Nav.Link as={NavLink} to="/admin/system-config">
+//               System Config
+//             </Nav.Link>
+//           </Nav>
+//           <Form className="d-flex me-3" onSubmit={handleSearch}>
+//             <FormControl
+//               type="search"
+//               placeholder="Search"
+//               className="me-2"
+//               aria-label="Search"
+//               value={searchQuery}
+//               onChange={(e) => setSearchQuery(e.target.value)}
+//             />
+//             <Button variant="outline-light" type="submit">
+//               <FaSearch />
+//             </Button>
+//           </Form>
+//           <Nav className="align-items-center">
+//             <FaUserCircle size={30} className="me-2" />
+//             <Nav.Link disabled>{userName}</Nav.Link>
+//             <Button variant="outline-light" onClick={handleLogout} className="ms-2">
 //               Logout
-//             </button>
-
-//           </div>
-//         </div>
-
-        
-        
-//       </div>
-      
-      
-//     </header>
+//             </Button>
+//           </Nav>
+//         </Navbar.Collapse>
+//       </Container>
+//     </Navbar>
 //   );
-
 // };
 
 // export default Header;
